@@ -1,0 +1,634 @@
+<html lang="en"><head>
+    <title>Code coverage report for node-npmtest-rethinkdb-init/node_modules/rethinkdb-init/index.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-rethinkdb-init">npmtest-rethinkdb-init (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-rethinkdb-init/node_modules/rethinkdb-init/index.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">6.67% <small>(4 / 60)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 51)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 13)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">8.89% <small>(4 / 45)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> » <a href="index.html">node-npmtest-rethinkdb-init/node_modules/rethinkdb-init/</a> » index.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tbody><tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict'
+var q = require('q')
+var _ = require('lodash')
+&nbsp;
+var rethinkdbInit = <span class="fstat-no" title="function not covered">function (r) {</span>
+  // Is there a sane way of checking that this is a RethinkDB instance without importing the module?
+<span class="cstat-no" title="statement not covered">  if (typeof r !== 'function') <span class="cstat-no" title="statement not covered">throw new TypeError('r must be a RethinkDB instance. Passed instances is a `' + (typeof r) + '`')</span></span>
+&nbsp;
+  /**
+   * Returns true only if object is not `null` and is not an array
+   *
+   * @param {Any}
+   * @return {Boolean}
+   */
+<span class="cstat-no" title="statement not covered">  var isRealObject = <span class="fstat-no" title="function not covered">function (value) {</span></span>
+<span class="cstat-no" title="statement not covered">    if (typeof value === 'object' &amp;&amp; value !== null &amp;&amp; !Array.isArray(value)) <span class="cstat-no" title="statement not covered">return true</span></span>
+<span class="cstat-no" title="statement not covered">    return false</span>
+  }
+&nbsp;
+  /**
+   * Throws an error if the error given is not an `already exists` error
+   *
+   * @param &lt;Error&gt;
+   */
+<span class="cstat-no" title="statement not covered">  var existsHandler = <span class="fstat-no" title="function not covered">function (err) {</span></span>
+<span class="cstat-no" title="statement not covered">    if (err.name === 'ReqlOpFailedError' &amp;&amp; (err.msg || err.message).indexOf('already exists')) <span class="cstat-no" title="statement not covered">return</span></span>
+<span class="cstat-no" title="statement not covered">    if (err.name === 'RqlRuntimeError' &amp;&amp; (err.msg || err.message).indexOf('already exists')) <span class="cstat-no" title="statement not covered">return</span></span>
+<span class="cstat-no" title="statement not covered">    throw err</span>
+  }
+&nbsp;
+  /**
+   * Maps a table object to an array of promises to create indexes for that table
+   *
+   * @param {Object}        table                - Table object
+   * @param {Object}        table.name           - Name of table
+   * @param {Array&lt;String|Object&gt;} table.indexes - Array of index
+   * @param {Array&lt;String&gt;} table.indexes        - Array of strings with index names
+   * @param {Array&lt;Object&gt;} table.indexes        - Array of objects with index `name`, `indexFunction`, `mutli`, `geo`
+   * @param {String}        db                   - Database name
+   * @param {Object}        conn                 - RethinkDB connection
+   * @return {Array}
+   */
+<span class="cstat-no" title="statement not covered">  var mapIndexes = <span class="fstat-no" title="function not covered">function (table, db, conn) {</span></span>
+<span class="cstat-no" title="statement not covered">    return table.indexes.map(<span class="fstat-no" title="function not covered">function (index) {</span></span>
+<span class="cstat-no" title="statement not covered">      if (typeof index !== 'object' &amp;&amp; typeof index !== 'string') <span class="cstat-no" title="statement not covered">throw new TypeError('index entry in table entry must be `Object` or `String`')</span></span>
+<span class="cstat-no" title="statement not covered">      if (typeof index === 'string') <span class="cstat-no" title="statement not covered">return r.db(db).table(table.name).indexCreate(index).run(conn).catch(existsHandler)</span></span>
+<span class="cstat-no" title="statement not covered">      if (index.name === undefined) <span class="cstat-no" title="statement not covered">throw new TypeError('index entry object in table schema must have a `name` property')</span></span>
+<span class="cstat-no" title="statement not covered">      var opts = []</span>
+<span class="cstat-no" title="statement not covered">      if (index.indexFunction) <span class="cstat-no" title="statement not covered">opts.push(index.indexFunction)</span></span>
+<span class="cstat-no" title="statement not covered">      if (index.multi || index.geo) <span class="cstat-no" title="statement not covered">opts.push(_.pick(index, ['multi', 'geo']))</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">      return r.db(db).table(table.name)</span>
+        .indexCreate(index.name, opts[0], opts[1])
+        .run(conn)
+        .catch(existsHandler)
+    })
+  }
+&nbsp;
+  /**
+   * Maps a schema object to an array of promises to create tables
+   *
+   * @param {Object}                schema               - Schema for table creation
+   * @param {String}                schema.table         - Name of the table
+   * @param {Object}                schema.table         - Object describing table
+   * @param {String}                schema.table.name    - Name of the table
+   * @param {Array&lt;String|Object&gt;}  schema.table.indexes - Array of indexes
+   * @param {String}                db                   - Database name
+   * @param {Object}                conn                 - Database connection
+   * @return {Array}
+   */
+<span class="cstat-no" title="statement not covered">  var mapTables = <span class="fstat-no" title="function not covered">function (schema, db, conn) {</span></span>
+<span class="cstat-no" title="statement not covered">    return schema.map(<span class="fstat-no" title="function not covered">function (table) {</span></span>
+<span class="cstat-no" title="statement not covered">      if (!isRealObject(table) &amp;&amp; typeof table !== 'string') {</span>
+<span class="cstat-no" title="statement not covered">        throw new TypeError('table entry in schema must be `Object` or `String`')</span>
+      }
+<span class="cstat-no" title="statement not covered">      if (typeof table === 'string') {</span>
+<span class="cstat-no" title="statement not covered">        return r.db(db).tableCreate(table).run(conn).catch(existsHandler)</span>
+      }
+<span class="cstat-no" title="statement not covered">      if (table.name === undefined) <span class="cstat-no" title="statement not covered">throw new TypeError('table entry object in schema must have a `name` property')</span></span>
+<span class="cstat-no" title="statement not covered">      var options = _.pick(table, ['primaryKey', 'durability', 'shards', 'replicas', 'primaryReplicaTag'])</span>
+<span class="cstat-no" title="statement not covered">      return r.db(db).tableCreate(table.name, options).run(conn)</span>
+        .catch(existsHandler)
+        .then(<span class="fstat-no" title="function not covered">function () {</span>
+          // Create indexes
+<span class="cstat-no" title="statement not covered">          if (table.indexes === undefined) <span class="cstat-no" title="statement not covered">return true</span></span>
+<span class="cstat-no" title="statement not covered">          if (!Array.isArray(table.indexes)) <span class="cstat-no" title="statement not covered">throw new TypeError('Table indexes attribute should be an Array.')</span></span>
+<span class="cstat-no" title="statement not covered">          return q.all(mapIndexes(table, db, conn))</span>
+        })
+        .then(<span class="fstat-no" title="function not covered">function () {</span>
+<span class="cstat-no" title="statement not covered">          return r.db(db).table(table.name).indexWait().run(conn)</span>
+        })
+    })
+  }
+&nbsp;
+  /**
+   * Create databases, tables, and indexes as defined by the schema
+   *
+   * @param {Object}                connection           - Connection details for database (See: https://rethinkdb.com/api/javascript/connect/)
+   * @param {String}                connection.db        - Database name
+   * @param {String}                connection.host      - Database host
+   * @param {String}                connection.port      - Database port
+   * @param {Object}                schema               - Schema for table creation
+   * @param {String}                schema.table         - Name of the table
+   * @param {Object}                schema.table         - Object describing table
+   * @param {String}                schema.table.name    - Name of the table
+   * @param {Array&lt;String|Object&gt;}  schema.table.indexes - Array of indexes
+   * @return {Promise}
+   */
+<span class="cstat-no" title="statement not covered">  var init = <span class="fstat-no" title="function not covered">function (connection, schema) {</span></span>
+    // Connection must be an object and have a db, host, and port
+<span class="cstat-no" title="statement not covered">    return q().then(<span class="fstat-no" title="function not covered">function () {</span></span>
+<span class="cstat-no" title="statement not covered">      if (!isRealObject(connection)) <span class="cstat-no" title="statement not covered">throw new TypeError('Connection object must be an object.')</span></span>
+<span class="cstat-no" title="statement not covered">      if (typeof connection.db !== 'string') <span class="cstat-no" title="statement not covered">throw new TypeError('Connection object must have a db property. rethinkdb-init won\'t add tables to the `test` database unless explicitly declared')</span></span>
+<span class="cstat-no" title="statement not covered">      if (!Array.isArray(schema)) <span class="cstat-no" title="statement not covered">throw new TypeError('Schema argument must be an array.')</span></span>
+<span class="cstat-no" title="statement not covered">      var db = connection.db</span>
+<span class="cstat-no" title="statement not covered">      return r.connect(connection)</span>
+       .then(<span class="fstat-no" title="function not covered">function (conn) {</span>
+<span class="cstat-no" title="statement not covered">         return r.dbCreate(db).run(conn)</span>
+           .catch(existsHandler)
+           .then(<span class="fstat-no" title="function not covered">function () {</span>
+             // Take an array of tables and create all tables
+             // Create all indexes
+<span class="cstat-no" title="statement not covered">             return q.all(mapTables(schema, db, conn))</span>
+           })
+           .return(conn)
+       })
+    })
+  }
+&nbsp;
+  // Attach `init` function to RethinkDB instance
+<span class="cstat-no" title="statement not covered">  r.init = init</span>
+  // Return init function
+<span class="cstat-no" title="statement not covered">  return init</span>
+}
+&nbsp;
+module.exports = rethinkdbInit
+&nbsp;
+&nbsp;</pre></td></tr>
+</tbody></table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Wed Apr 19 2017 14:38:31 GMT+0000 (UTC)</div>
+</div>
+
+
+</body></html>
